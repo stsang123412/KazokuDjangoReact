@@ -1,0 +1,175 @@
+# Installation Steps 
+[Overviewing Guide](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-ruby-on-rails-project-with-a-react-frontend  )
+
+# 1. Install Node and NPM 
+
+__**Update System**__  
+```
+1. sudo apt-get update  
+2. sudo apt-get -y install git-core curl build-essential openssl libssl-dev python  
+```
+
+## Install Node.js   
+[Guide](https://www.devroom.io/2011/10/24/installing-node-js-and-npm-on-ubuntu-debian/)
+
+```
+git clone https://github.com/nodejs/node.git  
+
+cd node  
+```
+
+Now, if you require a specific version of Node:  
+
+
+```
+# Gives you a list of released versions
+
+git tag   
+git checkout v10.16.0 [at the time of writing this]
+```
+
+Then compile and install Node like this:  
+This might take a while, depending on your hardware.
+
+```
+./configure
+make
+sudo make install  
+```
+
+Check Version:  
+
+```
+node -v [should be v.8.10.0] if <sudo apt -y install nodejs>
+```
+
+## Install NPM  
+```
+curl -L https://npmjs.org/install.sh | sudo sh
+```
+
+```
+npm -v    (6.14.2)
+```
+
+# 2. Install Yarn
+First Configure the Repo:  
+```
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+```
+
+```
+sudo apt update && sudo apt install yarn
+
+sudo yarn --version
+
+
+1.22.4
+```
+
+# 3.1 Install Ruby on Rails with rbenv ``Ubuntu 18.04``
+[Guide](https://www.digitalocean.com/community/tutorials/how-to-install-ruby-on-rails-with-rbenv-on-ubuntu-18-04)
+
+Update Packages and install ruby dependencies:  
+```
+sudo apt update
+
+sudo apt -y install autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm5 libgdbm-dev 
+```
+
+Dependencies Done, now install rbenv. Clone repo --> into ``~/.ebenv``
+```
+git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+```
+
+Next, add ``~/.rbenv/bin`` to your ``$PATH`` so that you can use the rbenv command line utility. Do this by altering your ``~/.bashrc file`` so that it affects future login sessions:  
+```
+echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+```
+
+Then add the command ``eval "$(rbenv init -)"`` to your ``~/.bashrc`` file so rbenv loads automatically:
+```
+echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+```
+
+Next, apply the changes you made to your ``~/.bashrc`` file to your current shell session:
+```
+source ~/.bashrc
+```
+
+Now install ruby-build plugin. Addds the ``rbenv install`` command, making easy installs for new versions:
+```
+git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+```
+# 3.2 ``Ruby 2.6.3 Install`` (Ruby install with ruby-build)  
+
+
+```
+rbenv install -l    //shows the list of installs
+rbenv install 2.6.3
+```
+
+Once its done installing, set it as our default version of Ruby with the global sub-command:
+```
+rbenv global 2.6.3
+```
+
+Check Ruby Install
+```
+ruby -v
+
+    ruby 2.6.3p62 (2019-04-16 revision 67580) [x86_64-linux]
+```
+
+# 3.3 Gems Installation 
+
+* Gems are the way Ruby libraries are distributed.  
+* You use the ``gem`` command to manage these gems.  
+* Well use this command to install Rails.
+
+
+* When you install a gem, the installation process generates local documentation
+* This can add a significant amount of time to each gems installation process, 
+    so turn off local documentation generation by creating a file called ``~/.gemrc `` which contains a configuration setting to turn off this feature:
+```
+echo "gem: --no-document" > ~/.gemrc
+```
+
+Bundler is a tool that manages gem dependencies for projects. Install the Bundler gem next. as Rails depends on it.
+```
+gem install bundler
+
+# check if installed: 
+    gem env home
+
+    /home/vagrant/.rbenv/versions/2.6.3/lib/ruby/gems/2.6.0
+```
+
+# 3.4 Rails Install ``5.2.3``
+Install Rails  command:
+```
+gem install rails -v 5.2.0
+```
+```
+rails -v 
+```
+
+# 4.1 Install PostgreSQL
+[Guide](https://www.digitalocean.com/community/tutorials/how-to-use-postgresql-with-your-ruby-on-rails-application-on-ubuntu-18-04)
+
+Install PSQL and the Dev Libraries:
+```
+sudo apt -y install postgresql postgresql-contrib libpq-dev
+```
+
+# 4.2 Creating a New Database Role
+```
+sudo -u postgres createuser -s vagrant -P
+
+pw: s****|****34
+```
+# 5.1 New Rails Application (Now DigitalOcean Pre-Reqs are done)
+[Guide](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-ruby-on-rails-project-with-a-react-frontend)
+
